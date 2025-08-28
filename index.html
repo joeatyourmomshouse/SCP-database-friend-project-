@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <link type="script" href="script.js">
-  <audio id="typeSound" src="type.wav" preload="auto"></audio>
+  <audio id="typeSound" src="bob.mp3" preload="auto"></audio>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>databse </title>
@@ -144,39 +144,11 @@ button {
 </div>
 
 <script>
+  let passkey = false;
 const secretInfo = `
 CLASIFIED INFO
 =================================================================================================
-Hello, this is Reef, Head General of Big Pot’s side of the war. 
 
-If you have been given this document, 
-you are a trusted member of the fight against Mad Cap. This document has information that we don’t want 
-SJ and Mad Cap to know. Whether you are a spy, captain, general, or member of the council, 
-you have a role to help us win against Mad Cap. 
-
-
-
-
-Roles:
-
-The Council: Khang, <(owner) 
-Virat,(head of spy department and stocks manager) 
-David, (moderator)
-Levi, (who has invited you)
-Abraham (master of silliness)
-
-Generals: Reef <(Head General), and Jack Pratt
-
-Captains: Wes <(Head Captain), Jackson Moore <(spy)
-
-privates: Jackson, Owen, Ryan, Malachi, and Hayvn 
-
-
-
-
-              Spy actions to be done
-Get updated links of mad cap and put it into our webpage
-Steal as many games, movies, shows, and proxies as possible
 
 
 NOTE: Unauthorized access will be logged.
@@ -198,15 +170,18 @@ function logAccess(message, success = false) {
 function verifyPassword() {
   const input = document.getElementById("passwordInput").value.trim();
   if (input === "blackbox 2025") {
+    let passkey = true;
     document.querySelector(".input-section").style.display = "block";
     document.querySelector(".password-section").style.display = "none";
     output.textContent = "Password accepted.\nCommand access granted.";
     logAccess("Terminal unlocked.", true);
   } else {
+audio.play()
+}; // Start playback
     output.textContent = "ACCESS DENIED.\nIncorrect password.";
     logAccess("FAILED password attempt.", false);
   }
-}
+
 
 function typingEffect(text, callback) {
   let i = 0;
