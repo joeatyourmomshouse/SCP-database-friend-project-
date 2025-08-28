@@ -212,9 +212,9 @@ function executeCommand() {
     output.textContent = "Cleared the screen.\nAwaiting input...";
     logAccess("Command executed: Cleared terminal screen.", true);
   } 
-else if (command == shut){
-  window.close();
-}
+else if (command === "shut") {
+    window.close();
+  }
   else {
     typingEffect("ERROR: Command not recognized.");
     logAccess(`Invalid command attempted: ${command}`, false);
