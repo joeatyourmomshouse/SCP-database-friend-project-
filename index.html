@@ -178,7 +178,9 @@ function verifyPassword() {
     output.textContent = "ACCESS DENIED.\nIncorrect password.";
     logAccess("FAILED password attempt.", false);
     window.open(URL, "https://www.youtube.com/watch?v=c9uvwhuWRpY&t=21s");
-    window.open(URL, "https://www.youtube.com/watch?v=c9uvwhuWRpY&t=21s"); 
+    window.open("https://www.google.com/search?q=hmmmmmm", "_blank");
+    window.open(URL, "https://www.youtube.com/watch?v=c9uvwhuWRpY&t=21s");
+
         
 
   }
@@ -202,11 +204,11 @@ function executeCommand() {
   const command = document.getElementById("commandInput").value.trim().toLowerCase();
   if (command === "info") {
     typingEffect(secretInfo);
-    logAccess("Command executed: Displayed system information.", true);
-  } else if (command === "status") {
+    logAccess("Command executed: Displayed information.", true);
+  } else if (command === "stat") {
     typingEffect("System Status: All systems are operational.\nNo errors detected.");
     logAccess("Command executed: Displayed system status.", true);
-  } else if (command === "clear") {
+  } else if (command === "clr") {
     output.textContent = "Cleared the screen.\nAwaiting input...";
     logAccess("Command executed: Cleared terminal screen.", true);
   } else {
