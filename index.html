@@ -1,217 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link type="script" href="script.js">
-  <audio id="typeSound" src="bob.mp3" preload="auto"></audio>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>databse </title>
-<style>
-body {
-  background-color: #000;
-  color: #00ff00;
-  font-family: 'Courier New', Courier, monospace;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Database Terminal</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-.terminal {
-  background-color: #101010;
-  border: 2px solid red;
-  padding: 2rem;
-  width: 90%;
-  max-width: 800px;
-  box-shadow: 0 0 20px #ff000080;
-}
+    .terminal {
+      background-color: #101010;
+      border: 2px solid red;
+      padding: 2rem;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0 0 20px #ff000080;
+    }
 
-h1 {
-  text-align: center;
-  color: #ff4d4d;
-  margin-bottom: 1rem;
-}
+    h1 {
+      text-align: center;
+      color: #ff4d4d;
+      margin-bottom: 1rem;
+    }
 
-input, button {
-  font-family: 'Courier New', monospace;
-  background-color: #000;
-  border: 1px solid #444;
-  color: #0f0;
-  padding: 0.5rem;
-  font-size: 1rem;
-  width: 100%;
-  margin-top: 0.5rem;
-}
+    input, button {
+      font-family: 'Courier New', monospace;
+      background-color: #000;
+      border: 1px solid #444;
+      color: #0f0;
+      padding: 0.5rem;
+      font-size: 1rem;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
 
-button {
-  background-color: #400;
-  color: white;
-  cursor: pointer;
-}
+    button {
+      background-color: #400;
+      color: white;
+      cursor: pointer;
+    }
 
-.input-section {
-  display: none;
-}
+    .input-section {
+      display: none;
+    }
 
-.output {
-  background-color: #000;
-  border: 1px solid #333;
-  padding: 1rem;
-  margin-top: 1rem;
-  min-height: 150px;
-  max-height: 400px;
-  overflow-y: auto;
-  white-space: pre-line;
-  font-size: 0.95rem;
-}
+    .output {
+      background-color: #000;
+      border: 1px solid #333;
+      padding: 1rem;
+      margin-top: 1rem;
+      min-height: 150px;
+      max-height: 400px;
+      overflow-y: auto;
+      white-space: pre-line;
+      font-size: 0.95rem;
+    }
 
-.warning {
-  margin-top: 1rem;
-  color: white;
-  background-color: #a00;
-  padding: 0.5rem;
-  text-align: center;
-  font-weight: bold;
-}
+    .warning {
+      margin-top: 1rem;
+      color: white;
+      background-color: #a00;
+      padding: 0.5rem;
+      text-align: center;
+      font-weight: bold;
+    }
 
-.logs {
-  background: #111;
-  border: 1px solid #333;
-  margin-top: 1rem;
-  padding: 0.5rem;
-  max-height: 100px;
-  overflow-y: auto;
-  font-size: 0.85rem;
-}
+    .logs {
+      background: #111;
+      border: 1px solid #333;
+      margin-top: 1rem;
+      padding: 0.5rem;
+      max-height: 100px;
+      overflow-y: auto;
+      font-size: 0.85rem;
+    }
 
-.flicker::after {
-  content: '_';
-  animation: blink 1s step-end infinite;
-}
+    .flicker::after {
+      content: '_';
+      animation: blink 1s step-end infinite;
+    }
 
-@keyframes blink {
-  50% { opacity: 0; }
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.6);
-}
-
-.modal-content {
-  background-color: #1a1a1a;
-  color: #0f0;
-  margin: 10% auto;
-  padding: 20px;
-  border: 2px solid #600;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
-}
-
-.close-btn {
-  float: right;
-  font-size: 24px;
-  color: #f00;
-  cursor: pointer;
-}
-</style>
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+  </style>
 </head>
 <body>
-<div class="terminal">
-  <h1>Command Terminal</h1>
+  <div class="terminal">
+    <h1>Command Terminal</h1>
 
-  <div class="password-section">
-    <input type="password" id="passwordInput" placeholder="Enter access password">
-    <button onclick="verifyPassword()">Submit Password</button>
+    <div class="password-section">
+      <input type="password" id="passwordInput" placeholder="Enter access password">
+      <button onclick="verifyPassword()">Submit Password</button>
+    </div>
+
+    <div class="input-section">
+      <input type="text" id="commandInput" placeholder="Enter command...">
+      <button onclick="executeCommand()">Execute</button>
+    </div>
+
+    <div id="output" class="output flicker">Awaiting input...</div>
+    <div id="logBox" class="logs"></div>
+    <div class="warning">UNAUTHORIZED ACCESS ATTEMPTS WILL BE LOGGED</div>
   </div>
 
-  <div class="input-section">
-    <input type="text" id="commandInput" placeholder="Enter command...">
-    <button onclick="executeCommand()">Execute</button>
-  </div>
+  <script>
+    let passkey = false;
+    let incorrectSoundPlayed = false;
 
-  <div id="output" class="output flicker">Awaiting input...</div>
-  <div id="logBox" class="logs"></div>
-  <div class="warning">UNAUTHORIZED ACCESS ATTEMPTS WILL BE LOGGED</div>
-</div>
-
-<script>
-  let passkey = false;
-const secretInfo = `
+    const secretInfo = `
 CLASIFIED INFO
 =================================================================================================
-
-
 
 NOTE: Unauthorized access will be logged.
 =========================================================================================
 `;
 
-let currentStaff = null;
+    const output = document.getElementById("output");
+    const logBox = document.getElementById("logBox");
 
-const output = document.getElementById("output");
-const logBox = document.getElementById("logBox");
-
-function logAccess(message, success = false) {
-  const entry = document.createElement("div");
-  entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
-  entry.style.color = success ? "#0f0" : "#f00";
-  logBox.prepend(entry);
-}
-
-function verifyPassword() {
-  const input = document.getElementById("passwordInput").value.trim();
-  if (input === "blackbox 2025") {
-    let passkey = true;
-    document.querySelector(".input-section").style.display = "block";
-    document.querySelector(".password-section").style.display = "none";
-    output.textContent = "Password accepted.\nCommand access granted.";
-    logAccess("Terminal unlocked.", true);
-  } else {
-audio.play()
-}; // Start playback
-    output.textContent = "ACCESS DENIED.\nIncorrect password.";
-    logAccess("FAILED password attempt.", false);
-  }
-
-
-function typingEffect(text, callback) {
-  let i = 0;
-  output.textContent = '';
-  const interval = setInterval(() => {
-    output.textContent += text[i];
-    i++;
-    if (i >= text.length) {
-      clearInterval(interval);
-      if (callback) callback();
+    function logAccess(message, success = false) {
+      const entry = document.createElement("div");
+      entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      entry.style.color = success ? "#0f0" : "#f00";
+      logBox.prepend(entry);
     }
-  }, 10);
-}
 
-function executeCommand() {
-  const command = document.getElementById("commandInput").value.trim().toLowerCase();
-  if (command === "info") {
-    typingEffect(secretInfo);
-    logAccess("Command executed: Displayed system information.", true);
-  } else if (command === "status") {
-    typingEffect("System Status: All systems are operational.\nNo errors detected.");
-    logAccess("Command executed: Displayed system status.", true);
-  } else if (command === "clear") {
-    output.textContent = "Cleared the screen.\nAwaiting input...";
-    logAccess("Command executed: Cleared terminal screen.", true);
-  } else {
-    typingEffect("ERROR: Command not recognized.");
-    logAccess(`Invalid command attempted: ${command}`, false);
-  }
-}
-</script>
+    function verifyPassword() {
+      const input = document.getElementById("passwordInput").value.trim();
+      if (input === "blackbox 2025") {
+        document.querySelector(".input-section").style.display = "block";
+        document.querySelector(".password-section").style.display = "none";
+        output.textContent = "Password accepted.\nCommand access granted.";
+        logAccess("Terminal unlocked.", true);
+      } else {
+        if (!incorrectSoundPlayed) {
+          const audio = new Audio('bob.mp3');
+          audio.play();
+          incorrectSoundPlayed = true;
+        }
+        output.textContent = "ACCESS DENIED.\nIncorrect password.";
+        logAccess("FAILED password attempt.", false);
+      }
+    }
+
+    function typingEffect(text, callback) {
+      let i = 0;
+      output.textContent = '';
+      const interval = setInterval(() => {
+        output.textContent += text[i];
+        i++;
+        if (i >= text.length) {
+          clearInterval(interval);
+          if (callback) callback();
+        }
+      }, 10);
+    }
+
+    function executeCommand() {
+      const command = document.getElementById("commandInput").value.trim().toLowerCase();
+      if (command === "info") {
+        typingEffect(secretInfo);
+        logAccess("Command executed: Displayed system information.", true);
+      } else if (command === "status") {
+        typingEffect("System Status: All systems are operational.\nNo errors detected.");
+        logAccess("Command executed: Displayed system status.", true);
+      } else if (command === "clear") {
+        output.textContent = "Cleared the screen.\nAwaiting input...";
+        logAccess("Command executed: Cleared terminal screen.", true);
+      } else {
+        typingEffect("ERROR: Command not recognized.");
+        logAccess(`Invalid command attempted: ${command}`, false);
+      }
+    }
+  </script>
 </body>
 </html>
