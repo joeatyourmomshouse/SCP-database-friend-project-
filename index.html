@@ -116,15 +116,9 @@
     <div class="warning">UNAUTHORIZED ACCESS ATTEMPTS WILL BE LOGGED</div>
   </div>
 
-  <!-- Hidden video element -->
-  <video id="errorVideo" autoplay muted>
-    <source src="w.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  
 
   <script>
-    alert("TURN UP YOUR VOLUME FOR IT TO WORK.");
-
     const secretInfo = `
 CLASIFIED INFO
 =======================================================================================
@@ -144,7 +138,6 @@ NOTE: Unauthorized access will be logged.
     }
 
     function verifyPassword() {
-      alert("TURN UP YOUR VOLUME FOR IT TO WORK.");
       const input = document.getElementById("passwordInput").value.trim();
       if (input === "blackbox 2025") {
         document.querySelector(".input-section").style.display = "block";
@@ -154,9 +147,6 @@ NOTE: Unauthorized access will be logged.
       } else {
         output.textContent = "ACCESS DENIED.\nIncorrect password.";
         logAccess("FAILED password attempt.", false);
-        const video = document.getElementById("errorVideo");
-        video.currentTime = 0;
-        video.play();
       }
     }
 
